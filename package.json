@@ -1,0 +1,31 @@
+{
+  "name": "emarknews-phoenix",
+  "version": "7.0.0",
+  "description": "EmarkNews Phoenix - AI-powered Real-time News Aggregator",
+  "main": "src/app.js",
+  "engines": {
+    "node": ">=18.0.0",
+    "npm": ">=9.0.0"
+  },
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "NODE_ENV=development node src/app.js",
+    "test": "echo \"No tests yet\"",
+    "build": "echo \"Build complete\""
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "compression": "^1.7.4",
+    "helmet": "^7.1.0",
+    "dotenv": "^16.4.5",
+    "axios": "^1.6.7",
+    "express-rate-limit": "^7.2.0",
+    "redis": "^4.6.13",
+    "rss-parser": "^3.13.0",
+    "winston": "^3.11.0"
+  },
+  "keywords": ["news", "aggregator", "ai", "emarknews"],
+  "author": "EmarkNews Team",
+  "license": "MIT"
+}
