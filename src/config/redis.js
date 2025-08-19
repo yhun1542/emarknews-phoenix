@@ -1,4 +1,4 @@
-const Redis = require('ioredis');
+const { createClient } = require('redis');
 require('dotenv').config();
 
 class RedisClient {
@@ -9,22 +9,10 @@ class RedisClient {
 
   async connect() {
     try {
-      const redisOptions = {
-        host: process.env.REDIS_HOST || 'localhost',
-        port: parseInt(process.env.REDIS_PORT) || 6379,
-        password: process.env.REDIS_PASSWORD || undefined,
-        db: parseInt(process.env.REDIS_DB) || 0,
-        retryDelayOnFailover: 100,
-        enableReadyCheck: false,
-        maxRetriesPerRequest: null,
-      };
-
-      // Redis URL이 있으면 우선 사용
-      if (process.env.REDIS_URL) {
-        this.client = new Redis(process.env.REDIS_URL);
-      } else {
-        this.client = new Redis(redisOptions);
-      }
+      // Redis 클라이언트 생성
+      this.client = createClient({
+        url: process.env.REDIS_URL || 'redis://localhost:6379'
+      });
 
       this.client.on('connect', () => {
         console.log('✅ Redis에 연결되었습니다.');
@@ -36,11 +24,14 @@ class RedisClient {
         this.isConnected = false;
       });
 
-      this.client.on('close', () => {
+      this.client.on('end', () => {
         console.log('🔌 Redis 연결이 종료되었습니다.');
         this.isConnected = false;
       });
 
+      // 연결 시작
+      await this.client.connect();
+      
       return this.client;
     } catch (error) {
       console.error('Redis 초기화 오류:', error);
@@ -63,7 +54,7 @@ class RedisClient {
     try {
       if (!this.isConnected) return false;
       const serialized = JSON.stringify(value);
-      await this.client.setex(key, ttl, serialized);
+      await this.client.setEx(key, ttl, serialized);
       return true;
     } catch (error) {
       console.error('Redis SET 오류:', error);
@@ -85,7 +76,7 @@ class RedisClient {
   async flushAll() {
     try {
       if (!this.isConnected) return false;
-      await this.client.flushall();
+      await this.client.flushAll();
       return true;
     } catch (error) {
       console.error('Redis FLUSHALL 오류:', error);
