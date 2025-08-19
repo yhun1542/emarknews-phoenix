@@ -4,10 +4,10 @@ const logger = require('../utils/logger');
 
 // Import services
 const newsService = require('../services/newsService');
-const currencyService = require('../services/currencyService');
-const youtubeService = require('../services/youtubeService');
-const aiService = require('../services/aiService');
-const ratingService = require('../services/ratingService');
+const currencyService = require('../services/currencyservice');
+const youtubeService = require('../services/youtubeservice');
+const aiService = require('../services/aiservice');
+const ratingService = require('../services/ratingservice');
 
 // Middleware for logging API requests
 router.use((req, res, next) => {
