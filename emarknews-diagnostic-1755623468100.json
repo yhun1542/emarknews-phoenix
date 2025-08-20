@@ -1,0 +1,146 @@
+{
+  "timestamp": "2025-08-19T17:11:08.100Z",
+  "url": "https://emarknews.com",
+  "summary": {
+    "total": 19,
+    "passed": 11,
+    "failed": 1,
+    "warnings": 7
+  },
+  "tests": [
+    {
+      "test": "Basic Connectivity",
+      "status": "PASS",
+      "details": "Status: 200",
+      "responseTime": 563,
+      "timestamp": "2025-08-19T17:10:56.198Z"
+    },
+    {
+      "test": "Health Check",
+      "status": "PASS",
+      "details": "{\"status\":\"healthy\",\"version\":\"7.0.0\",\"timestamp\":\"2025-08-19T17:10:56.325Z\",\"redis\":\"connected\",\"environment\":\"production\"}",
+      "responseTime": 245,
+      "timestamp": "2025-08-19T17:10:56.444Z"
+    },
+    {
+      "test": "News API - world",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 360,
+      "timestamp": "2025-08-19T17:10:56.806Z"
+    },
+    {
+      "test": "News API - kr",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 635,
+      "timestamp": "2025-08-19T17:10:57.441Z"
+    },
+    {
+      "test": "News API - japan",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 299,
+      "timestamp": "2025-08-19T17:10:57.740Z"
+    },
+    {
+      "test": "News API - tech",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 1313,
+      "timestamp": "2025-08-19T17:11:02.477Z"
+    },
+    {
+      "test": "News API - business",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 332,
+      "timestamp": "2025-08-19T17:11:02.809Z"
+    },
+    {
+      "test": "News API - buzz",
+      "status": "EMPTY",
+      "details": "Articles: 0",
+      "responseTime": 285,
+      "timestamp": "2025-08-19T17:11:03.094Z"
+    },
+    {
+      "test": "Currency API",
+      "status": "PASS",
+      "details": "Currencies: 4",
+      "responseTime": 824,
+      "timestamp": "2025-08-19T17:11:03.919Z"
+    },
+    {
+      "test": "YouTube API",
+      "status": "PASS",
+      "details": "Videos: 10",
+      "responseTime": 1075,
+      "timestamp": "2025-08-19T17:11:04.994Z"
+    },
+    {
+      "test": "RSS Feed - BBC World",
+      "status": "PASS",
+      "details": "Size: 35837 bytes",
+      "responseTime": 161,
+      "timestamp": "2025-08-19T17:11:05.156Z"
+    },
+    {
+      "test": "RSS Feed - Reuters",
+      "status": "FAIL",
+      "details": "Request failed with status code 404",
+      "responseTime": 222,
+      "timestamp": "2025-08-19T17:11:05.379Z"
+    },
+    {
+      "test": "RSS Feed - 연합뉴스",
+      "status": "PASS",
+      "details": "Size: 74778 bytes",
+      "responseTime": 1179,
+      "timestamp": "2025-08-19T17:11:06.558Z"
+    },
+    {
+      "test": "RSS Feed - TechCrunch",
+      "status": "PASS",
+      "details": "Size: 18841 bytes",
+      "responseTime": 330,
+      "timestamp": "2025-08-19T17:11:06.888Z"
+    },
+    {
+      "test": "External API - OpenAI API",
+      "status": "PASS",
+      "details": "",
+      "responseTime": 0,
+      "timestamp": "2025-08-19T17:11:06.889Z"
+    },
+    {
+      "test": "External API - Exchange Rate API",
+      "status": "PASS",
+      "details": "",
+      "responseTime": 208,
+      "timestamp": "2025-08-19T17:11:07.097Z"
+    },
+    {
+      "test": "Database - Redis",
+      "status": "WARNING",
+      "details": "",
+      "responseTime": 245,
+      "timestamp": "2025-08-19T17:11:07.343Z"
+    },
+    {
+      "test": "Frontend - /",
+      "status": "PASS",
+      "details": "Size: 44495",
+      "responseTime": 248,
+      "timestamp": "2025-08-19T17:11:07.591Z"
+    },
+    {
+      "test": "Frontend - /favicon.ico",
+      "status": "PASS",
+      "details": "Size: 44495",
+      "responseTime": 253,
+      "timestamp": "2025-08-19T17:11:07.844Z"
+    }
+  ],
+  "duration": 12513
+}

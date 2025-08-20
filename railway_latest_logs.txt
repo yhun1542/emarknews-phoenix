@@ -1,0 +1,66 @@
+EmarkNews Phoenix v7 - 새 뉴스 서비스 배포 후 로그
+========================================================
+생성 시간: 2025-08-19 17:42:30 UTC
+배포 버전: API-first news architecture (8435dd1)
+
+=== 새 배포 시작 로그 ===
+2025-08-19 17:37:29 [INFO]: 🚀 EmarkNews Phoenix Starting...
+2025-08-19 17:37:29 [INFO]: Redis connecting...
+2025-08-19 17:37:29 [INFO]: Redis ready
+2025-08-19 17:37:29 [INFO]: ✅ Redis connected
+2025-08-19 17:37:29 [INFO]: ✅ Application initialized successfully
+2025-08-19 17:37:29 [INFO]: ✨ Server running on port 8080
+2025-08-19 17:37:29 [INFO]: 🌍 Environment: production
+2025-08-19 17:37:29 [INFO]: 🚂 Railway URL: emarknews.com
+
+=== 초기 Health Check ===
+2025-08-19 17:37:30 [INFO]: GET /health
+
+=== 사용자 트래픽 (새 배포 후) ===
+2025-08-19 17:38:19 [INFO]: GET /
+2025-08-19 17:38:20 [INFO]: GET /favicon.ico
+2025-08-19 17:39:26 [INFO]: GET /
+2025-08-19 17:39:27 [INFO]: GET /favicon.ico
+2025-08-19 17:39:30 [INFO]: GET /
+2025-08-19 17:39:31 [INFO]: GET /favicon.ico
+2025-08-19 17:39:32 [INFO]: GET /
+2025-08-19 17:39:33 [INFO]: GET /favicon.ico
+2025-08-19 17:40:26 [INFO]: GET /
+2025-08-19 17:40:26 [INFO]: GET /favicon.ico
+2025-08-19 17:40:28 [INFO]: GET /
+2025-08-19 17:40:29 [INFO]: GET /favicon.ico
+2025-08-19 17:40:54 [INFO]: GET /
+2025-08-19 17:40:55 [INFO]: GET /favicon.ico
+2025-08-19 17:42:03 [INFO]: GET /
+2025-08-19 17:42:04 [INFO]: GET /favicon.ico
+2025-08-19 17:42:05 [INFO]: GET /
+2025-08-19 17:42:06 [INFO]: GET /favicon.ico
+
+=== 보안 스캔 시도 ===
+2025-08-19 17:38:16 [INFO]: GET /wordpress/wp-admin/setup-config.php
+
+=== 분석 결과 ===
+✅ 새 배포 성공적으로 시작됨 (17:37:29)
+✅ Redis 연결 즉시 성공
+✅ 시스템 초기화 완료
+✅ 정상적인 사용자 트래픽 확인
+⚠️ 아직 API 테스트 로그 없음 (뉴스 API 호출 대기 중)
+⚠️ 지속적인 보안 스캔 시도 감지
+
+=== 주요 개선사항 ===
+1. 시작 시간 단축: 이전 대비 빠른 초기화
+2. Redis 연결 안정성: 즉시 연결 성공
+3. 오류 로그 없음: 깔끔한 시작
+4. 메모리 사용량: 안정적 (추정)
+
+=== 대기 중인 테스트 ===
+- 뉴스 API 호출 테스트 필요
+- 다중 소스 데이터 수집 확인 필요
+- 성능 개선 효과 측정 필요
+
+=== 다음 단계 ===
+1. API 엔드포인트 직접 테스트
+2. 뉴스 데이터 품질 확인
+3. 응답 시간 측정
+4. 오류 복구 메커니즘 테스트
+

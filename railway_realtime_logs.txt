@@ -1,0 +1,74 @@
+EmarkNews Phoenix v7 - Railway 실시간 로그
+==============================================
+생성 시간: 2025-08-19 17:18:00 UTC
+
+=== 시스템 시작 로그 ===
+2025-08-19 16:48:51 [INFO]: 🚀 EmarkNews Phoenix Starting...
+2025-08-19 16:48:51 [INFO]: Redis connecting...
+2025-08-19 16:48:51 [INFO]: Redis ready
+2025-08-19 16:48:51 [INFO]: ✅ Redis connected
+2025-08-19 16:48:51 [INFO]: ✅ Application initialized successfully
+2025-08-19 16:48:51 [INFO]: ✨ Server running on port 8080
+2025-08-19 16:48:51 [INFO]: 🌍 Environment: production
+2025-08-19 16:48:51 [INFO]: 🚂 Railway URL: emarknews.com
+
+=== 정상 트래픽 로그 ===
+2025-08-19 16:48:52 [INFO]: GET /health
+2025-08-19 16:50:11 [INFO]: GET /
+2025-08-19 16:50:12 [INFO]: GET /favicon.ico
+2025-08-19 17:01:40 [INFO]: GET /
+2025-08-19 17:01:47 [INFO]: GET /
+2025-08-19 17:01:48 [INFO]: GET /favicon.ico
+
+=== API 테스트 로그 ===
+2025-08-19 17:10:56 [INFO]: GET /health
+2025-08-19 17:10:56 [INFO]: GET /api/news/world
+2025-08-19 17:10:56 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:10:56 [INFO]: GET /api/news/kr
+2025-08-19 17:10:57 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:10:57 [INFO]: GET /api/news/tech
+2025-08-19 17:11:02 [INFO]: GET /api/news/business
+2025-08-19 17:11:02 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:11:02 [INFO]: GET /api/news/buzz
+2025-08-19 17:11:02 [ERROR]: Failed to fetch from CNN:
+
+=== 성공적인 API 호출 ===
+2025-08-19 17:11:03 [INFO]: GET /api/currency
+2025-08-19 17:11:03 [INFO]: 💰 Currency rates cached
+2025-08-19 17:11:03 [INFO]: 📈 Fetched fresh currency rates
+2025-08-19 17:11:04 [INFO]: GET /api/youtube/world
+2025-08-19 17:11:04 [INFO]: 📺 Cached 10 YouTube videos for youtube:world
+2025-08-19 17:11:04 [INFO]: 📺 Fetched 10 YouTube videos for world
+
+=== 보안 스캔 시도 ===
+2025-08-19 16:57:00 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 16:57:25 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 16:58:39 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 16:58:48 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 17:09:09 [INFO]: GET /.git/config
+2025-08-19 17:11:57 [INFO]: GET /.git/config
+2025-08-19 17:14:52 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 17:16:16 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 17:16:21 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 17:17:16 [INFO]: GET /wp-admin/setup-config.php
+
+=== 성능 통계 ===
+2025-08-19 16:53:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 16:58:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:03:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:08:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:13:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:18:51 [INFO] [PERFORMANCE]: Performance Statistics
+
+=== 분석 요약 ===
+✅ 시스템 정상 시작 및 Redis 연결 성공
+✅ 환율 API 및 유튜브 API 정상 작동
+❌ CNN RSS 피드 연결 실패 (반복적 오류)
+⚠️ 외부 보안 스캔 시도 감지 (WordPress, Git)
+📊 5분마다 성능 통계 자동 생성
+
+=== 권장 조치사항 ===
+1. CNN RSS URL 수정 필요
+2. 보안 스캔 차단 규칙 추가 고려
+3. 성능 모니터링 지속
+

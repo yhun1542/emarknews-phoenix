@@ -1,0 +1,92 @@
+Starting Container
+2025-08-19 16:48:51 [INFO]: 🚀 EmarkNews Phoenix Starting...
+2025-08-19 16:48:51 [INFO]: Redis connecting...
+2025-08-19 16:48:51 [INFO]: Redis ready
+2025-08-19 16:48:51 [INFO]: ✅ Redis connected
+2025-08-19 16:48:51 [INFO]: ✅ Application initialized successfully
+2025-08-19 16:48:51 [INFO]: ✨ Server running on port 8080
+2025-08-19 16:48:51 [INFO]: 🌍 Environment: production
+2025-08-19 16:48:51 [INFO]: 🚂 Railway URL: emarknews.com
+2025-08-19 16:48:52 [INFO]: GET /health
+2025-08-19 16:50:11 [INFO]: GET /
+2025-08-19 16:50:12 [INFO]: GET /favicon.ico
+2025-08-19 16:50:28 [INFO]: GET /
+2025-08-19 16:50:28 [INFO]: GET /favicon.ico
+2025-08-19 16:50:32 [INFO]: GET /
+2025-08-19 16:50:33 [INFO]: GET /favicon.ico
+2025-08-19 16:51:06 [INFO]: GET /
+2025-08-19 16:51:06 [INFO]: GET /favicon.ico
+2025-08-19 16:51:09 [INFO]: GET /
+2025-08-19 16:51:09 [INFO]: GET /favicon.ico
+2025-08-19 16:51:51 [INFO]: GET /
+2025-08-19 16:51:51 [INFO]: GET /favicon.ico
+2025-08-19 16:51:53 [INFO]: GET /
+2025-08-19 16:51:53 [INFO]: GET /favicon.ico
+2025-08-19 16:53:46 [INFO]: GET /
+2025-08-19 16:53:46 [INFO]: GET /
+2025-08-19 16:53:46 [INFO]: GET /
+2025-08-19 16:53:46 [INFO]: GET /
+2025-08-19 16:53:46 [INFO]: GET /
+2025-08-19 16:53:47 [INFO]: GET /
+2025-08-19 16:53:48 [INFO]: GET /
+2025-08-19 16:53:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 16:54:08 [INFO]: GET /
+2025-08-19 16:54:09 [INFO]: GET /
+2025-08-19 16:54:10 [INFO]: GET /
+2025-08-19 16:54:11 [INFO]: GET /
+2025-08-19 16:54:12 [INFO]: GET /
+2025-08-19 16:54:13 [INFO]: GET /
+2025-08-19 16:54:14 [INFO]: GET /
+2025-08-19 16:54:41 [INFO]: GET /
+2025-08-19 16:55:26 [INFO]: GET /
+2025-08-19 16:57:00 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 16:57:25 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 16:58:39 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 16:58:48 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 16:58:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:01:40 [INFO]: GET /
+2025-08-19 17:01:47 [INFO]: GET /
+2025-08-19 17:01:48 [INFO]: GET /favicon.ico
+2025-08-19 17:03:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:07:40 [INFO]: HEAD /
+2025-08-19 17:07:41 [INFO]: GET /
+2025-08-19 17:08:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:09:09 [INFO]: GET /.git/config
+2025-08-19 17:10:56 [INFO]: GET /
+2025-08-19 17:10:56 [INFO]: GET /health
+2025-08-19 17:10:56 [INFO]: GET /api/news/world
+2025-08-19 17:10:56 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:10:56 [INFO]: GET /api/news/kr
+2025-08-19 17:10:57 [INFO]: GET /api/news/japan
+2025-08-19 17:10:57 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:10:57 [INFO]: GET /api/news/tech
+2025-08-19 17:11:02 [INFO]: GET /api/news/business
+2025-08-19 17:11:02 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:11:02 [INFO]: GET /api/news/buzz
+2025-08-19 17:11:02 [ERROR]: Failed to fetch from CNN:
+2025-08-19 17:11:03 [INFO]: GET /api/currency
+2025-08-19 17:11:03 [INFO]: 💰 Currency rates cached
+2025-08-19 17:11:03 [INFO]: 📈 Fetched fresh currency rates
+2025-08-19 17:11:04 [INFO]: GET /api/youtube/world
+2025-08-19 17:11:04 [INFO]: 📺 Cached 10 YouTube videos for youtube:world
+2025-08-19 17:11:04 [INFO]: 📺 Fetched 10 YouTube videos for world
+2025-08-19 17:11:07 [INFO]: GET /health
+2025-08-19 17:11:07 [INFO]: GET /
+2025-08-19 17:11:07 [INFO]: GET /favicon.ico
+2025-08-19 17:11:07 [INFO]: GET /health
+2025-08-19 17:11:39 [INFO]: GET /
+2025-08-19 17:11:40 [INFO]: GET /favicon.ico
+2025-08-19 17:11:42 [INFO]: GET /
+2025-08-19 17:11:43 [INFO]: GET /favicon.ico
+2025-08-19 17:11:57 [INFO]: GET /.git/config
+2025-08-19 17:12:10 [INFO]: GET /
+2025-08-19 17:12:10 [INFO]: GET /
+2025-08-19 17:12:15 [INFO]: GET /
+2025-08-19 17:13:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:14:52 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 17:16:16 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 17:16:21 [INFO]: GET /wordpress/wp-admin/setup-config.php
+2025-08-19 17:17:16 [INFO]: GET /wp-admin/setup-config.php
+2025-08-19 17:18:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:23:51 [INFO] [PERFORMANCE]: Performance Statistics
+2025-08-19 17:28:51 [INFO] [PERFORMANCE]: Performance Statistics
