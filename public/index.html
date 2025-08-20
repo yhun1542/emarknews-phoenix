@@ -719,13 +719,38 @@
                     document.getElementById('loading').style.display = 'block';
                     document.getElementById('news-grid').style.display = 'none';
                     
-                    // 데이터 생성 또는 캐시에서 가져오기
+                    // 실제 API에서 데이터 가져오기
                     let articles;
                     if (this.allArticles.has(section)) {
                         articles = this.allArticles.get(section);
                     } else {
-                        articles = await this.generateMockNews(section);
-                        this.allArticles.set(section, articles);
+                        // 실제 API 호출
+                        const sectionMap = {
+                            'world': 'world',
+                            'kr': 'kr',
+                            'japan': 'japan',
+                            'tech': 'tech',
+                            'business': 'business',
+                            'buzz': 'buzz'
+                        };
+                        
+                        const apiSection = sectionMap[section] || section;
+                        console.log(`🌐 API 호출: /api/news/${apiSection}`);
+                        
+                        const response = await fetch(`/api/news/${apiSection}`);
+                        if (!response.ok) {
+                            throw new Error(`API Error: ${response.status}`);
+                        }
+                        
+                        const data = await response.json();
+                        console.log('📊 API 응답:', data);
+                        
+                        if (data.status === 'success' && data.articles) {
+                            articles = data.articles;
+                            this.allArticles.set(section, articles);
+                        } else {
+                            throw new Error('Invalid API response format');
+                        }
                     }
                     
                     console.log('Articles loaded:', articles.length);
@@ -746,165 +771,9 @@
             }
 
             async generateMockNews(section) {
-                // 각 섹션별 mock 데이터 생성
-                const now = new Date();
-                const baseArticles = {
-                    world: [
-                        {
-                            title: "Global Climate Summit Reaches Historic Agreement on Carbon Reduction",
-                            titleKo: "세계 기후 정상회의, 탄소 감축에 관한 역사적 합의 도달",
-                            source: "Reuters",
-                            publishedAt: new Date(now - 3600000).toISOString(),
-                            rating: 4.5,
-                            tags: ["중요", "긴급"],
-                            summaryPoints: [
-                                "전 세계 195개국이 2030년까지 탄소 배출량 50% 감축 목표에 합의",
-                                "개발도상국 지원을 위한 1000억 달러 규모의 청정에너지 전환 기금 조성",
-                                "환경 전문가들은 이를 기후변화 대응의 '역사적 전환점'으로 평가"
-                            ],
-                            aiDetailedSummary: "파리에서 개최된 세계 기후 정상회의에서 195개국 대표들이 탄소 감축에 관한 획기적인 합의에 도달했습니다.",
-                            originalTextKo: "파리에서 개최된 세계 기후 정상회의에 참석한 195개국 대표들이 탄소 감축 목표에 관한 획기적인 합의에 도달했습니다.",
-                            url: "https://reuters.com/climate",
-                            urlToImage: "https://images.unsplash.com/photo-1569163139394-de44cb5894d4?w=600&h=300&fit=crop"
-                        },
-                        {
-                            title: "Major Tech Companies Announce Joint AI Safety Initiative",
-                            titleKo: "주요 테크 기업들, 공동 AI 안전 이니셔티브 발표",
-                            source: "TechCrunch",
-                            publishedAt: new Date(now - 7200000).toISOString(),
-                            rating: 4.2,
-                            tags: ["테크", "중요"],
-                            summaryPoints: [
-                                "구글, 마이크로소프트, 오픈AI 등 주요 기업들이 AI 안전 표준 수립",
-                                "AI 개발 과정에서의 윤리적 가이드라인 공동 제정",
-                                "각 기업별 5억 달러씩 총 25억 달러 규모의 AI 안전 연구 기금 조성"
-                            ],
-                            aiDetailedSummary: "글로벌 테크 기업들이 AI 기술의 안전한 개발을 위한 공동 이니셔티브를 발표했습니다.",
-                            originalTextKo: "구글, 마이크로소프트, 오픈AI 등 주요 기술 기업들이 AI 안전을 위한 공동 이니셔티브를 발표했습니다.",
-                            url: "https://techcrunch.com/ai-safety",
-                            urlToImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=600&h=300&fit=crop"
-                        }
-                    ],
-                    kr: [
-                        {
-                            title: "정부, 중소기업 디지털 전환 지원 정책 발표",
-                            titleKo: "정부, 중소기업 디지털 전환 지원 정책 발표",
-                            source: "연합뉴스",
-                            publishedAt: new Date(now - 5400000).toISOString(),
-                            rating: 3.8,
-                            tags: ["경제", "중요"],
-                            summaryPoints: [
-                                "중소벤처기업부, 중소기업 디지털 전환 가속화를 위한 종합 정책 발표",
-                                "5년간 10조원 규모의 정책금융 공급 및 기술 지원 프로그램 도입",
-                                "글로벌 진출 지원과 온라인 플랫폼 구축을 통한 경쟁력 강화 추진"
-                            ],
-                            aiDetailedSummary: "중소벤처기업부는 중소기업의 디지털 전환 가속화와 글로벌 경쟁력 강화를 목표로 하는 종합 지원 정책을 발표했습니다.",
-                            originalTextKo: "중소벤처기업부는 중소기업의 디지털 전환 가속화와 글로벌 경쟁력 강화를 목표로 하는 종합 지원 정책을 발표했습니다.",
-                            url: "https://yna.co.kr/sme",
-                            urlToImage: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&h=300&fit=crop"
-                        },
-                        {
-                            title: "서울시, 2030년까지 탄소중립 도시 전환 로드맵 발표",
-                            titleKo: "서울시, 2030년까지 탄소중립 도시 전환 로드맵 발표",
-                            source: "KBS",
-                            publishedAt: new Date(now - 3600000).toISOString(),
-                            rating: 4.0,
-                            tags: ["환경", "중요"],
-                            summaryPoints: [
-                                "서울시, 2030년까지 탄소배출량 70% 감축 목표 설정",
-                                "대중교통 전면 전기화 및 그린 빌딩 전환 사업 추진",
-                                "시민 참여형 탄소중립 실천 캠페인 전개"
-                            ],
-                            aiDetailedSummary: "서울시가 2030년까지 탄소중립 도시로 전환하기 위한 구체적인 로드맵을 발표했습니다.",
-                            originalTextKo: "서울시가 2030년까지 탄소중립 도시로 전환하기 위한 구체적인 로드맵을 발표했습니다.",
-                            url: "https://kbs.co.kr/seoul",
-                            urlToImage: "https://images.unsplash.com/photo-1518005020951-eccb494ad742?w=600&h=300&fit=crop"
-                        }
-                    ],
-                    japan: [
-                        {
-                            title: "日本政府、少子化対策に過去最大規模の予算編成",
-                            titleKo: "일본 정부, 저출산 대책에 역대 최대 규모 예산 편성",
-                            source: "NHK",
-                            publishedAt: new Date(now - 10800000).toISOString(),
-                            rating: 4.3,
-                            tags: ["중요", "경제"],
-                            summaryPoints: [
-                                "일본 정부, 저출산 대책에 50조엔 규모의 예산 편성",
-                                "육아 수당 대폭 인상 및 무상 보육 확대",
-                                "청년층 주거 지원 정책 강화"
-                            ],
-                            aiDetailedSummary: "일본 정부가 심각한 저출산 문제 해결을 위해 역대 최대 규모의 예산을 편성했습니다.",
-                            originalTextKo: "일본 정부가 심각한 저출산 문제 해결을 위해 역대 최대 규모의 예산을 편성했습니다.",
-                            url: "https://nhk.or.jp/news",
-                            urlToImage: "https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=600&h=300&fit=crop"
-                        }
-                    ],
-                    tech: [
-                        {
-                            title: "Apple Unveils Revolutionary AR Glasses at Special Event",
-                            titleKo: "애플, 혁신적인 AR 글래스 공개",
-                            source: "The Verge",
-                            publishedAt: new Date(now - 1800000).toISOString(),
-                            rating: 4.7,
-                            tags: ["Hot", "테크"],
-                            summaryPoints: [
-                                "애플, 차세대 AR 글래스 'Vision Pro 2' 공개",
-                                "초경량 디자인과 하루 종일 사용 가능한 배터리 탑재",
-                                "가격은 $1,999로 기존 대비 50% 인하"
-                            ],
-                            aiDetailedSummary: "애플이 특별 이벤트에서 혁신적인 AR 글래스를 공개하며 증강현실 시장에 새로운 바람을 일으켰습니다.",
-                            originalTextKo: "애플이 특별 이벤트에서 혁신적인 AR 글래스를 공개하며 증강현실 시장에 새로운 바람을 일으켰습니다.",
-                            url: "https://theverge.com/apple",
-                            urlToImage: "https://images.unsplash.com/photo-1622979135225-d2ba269cf1ac?w=600&h=300&fit=crop"
-                        }
-                    ],
-                    business: [
-                        {
-                            title: "Global Stock Markets Hit Record Highs on Economic Recovery",
-                            titleKo: "글로벌 증시, 경제 회복세에 사상 최고치 경신",
-                            source: "Bloomberg",
-                            publishedAt: new Date(now - 4000000).toISOString(),
-                            rating: 4.1,
-                            tags: ["경제", "중요"],
-                            summaryPoints: [
-                                "S&P 500, 나스닥 동시 사상 최고치 경신",
-                                "아시아 증시도 동반 상승세 기록",
-                                "전문가들, 하반기 추가 상승 전망"
-                            ],
-                            aiDetailedSummary: "글로벌 증시가 경제 회복 기대감에 힘입어 사상 최고치를 경신했습니다.",
-                            originalTextKo: "글로벌 증시가 경제 회복 기대감에 힘입어 사상 최고치를 경신했습니다.",
-                            url: "https://bloomberg.com/markets",
-                            urlToImage: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=300&fit=crop"
-                        }
-                    ],
-                    buzz: [
-                        {
-                            title: "K-pop Group Breaks YouTube Record with New Music Video",
-                            titleKo: "K-pop 그룹, 신곡 MV로 유튜브 기록 경신",
-                            source: "Billboard",
-                            publishedAt: new Date(now - 600000).toISOString(),
-                            rating: 4.9,
-                            tags: ["Buzz", "바이럴", "Hot"],
-                            summaryPoints: [
-                                "신곡 MV 공개 24시간 만에 조회수 1억뷰 돌파",
-                                "유튜브 역사상 최단 시간 기록 달성",
-                                "전 세계 73개국 음원 차트 1위 석권"
-                            ],
-                            aiDetailedSummary: "K-pop 그룹이 새 뮤직비디오로 유튜브 역사를 새로 썼습니다.",
-                            originalTextKo: "K-pop 그룹이 새 뮤직비디오로 유튜브 역사를 새로 썼습니다.",
-                            url: "https://billboard.com/kpop",
-                            urlToImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&h=300&fit=crop"
-                        }
-                    ]
-                };
-
-                // 요청된 섹션의 기사를 반환, 없으면 빈 배열
-                const articles = baseArticles[section] || [];
-                console.log(`Generated ${articles.length} articles for section: ${section}`);
-                return articles;
+                // 더미 데이터 사용 안함 - 실제 API만 사용
+                return [];
             }
-
             displayNews(articles) {
                 const newsGrid = document.getElementById('news-grid');
                 
