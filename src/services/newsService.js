@@ -1,6 +1,7 @@
 const Parser = require('rss-parser');
 const logger = require('../utils/logger');
 const { redis } = require('../config/database');
+const aiService = require('./aiservice');
 
 class NewsService {
     constructor() {
@@ -91,53 +92,6 @@ class NewsService {
         return Math.min(5, Math.max(1, Math.round(rating * 10) / 10));
     }
 
-    // AI 요약 생성 (Mock)
-    generateAISummary(title, description) {
-        const summaries = [
-            "이 기사는 최근 국제 정세의 중요한 변화를 다루고 있으며, 향후 전개 상황에 대한 전문가들의 분석을 포함하고 있습니다.",
-            "주요 인물들의 발언과 정책 변화가 미치는 영향을 종합적으로 분석한 내용입니다.",
-            "현재 상황의 배경과 앞으로의 전망에 대해 다각도로 접근한 심층 분석 기사입니다.",
-            "관련 분야 전문가들의 의견과 데이터를 바탕으로 한 객관적인 분석을 제공합니다.",
-            "이번 사건이 가져올 파급효과와 관련 당사자들의 대응 방안을 상세히 다루고 있습니다."
-        ];
-        return summaries[Math.floor(Math.random() * summaries.length)];
-    }
-
-    // 한국어 번역 생성 (Mock)
-    generateKoreanTranslation(title, description) {
-        // 실제로는 번역 API를 사용해야 하지만, 여기서는 Mock 데이터 사용
-        if (title.includes('Trump')) {
-            return `트럼프 관련: ${description}`;
-        } else if (title.includes('Ukraine')) {
-            return `우크라이나 관련: ${description}`;
-        } else if (title.includes('China')) {
-            return `중국 관련: ${description}`;
-        }
-        return `번역된 내용: ${description}`;
-    }
-
-    // 요약 포인트 생성
-    generateSummaryPoints(title, description) {
-        const points = [
-            "주요 사건의 배경과 현재 상황 분석",
-            "관련 당사자들의 입장과 대응 방안",
-            "전문가들의 향후 전망과 예측",
-            "국제사회의 반응과 파급효과",
-            "관련 정책 변화와 그 의미"
-        ];
-        
-        // 랜덤하게 3-4개 포인트 선택
-        const selectedPoints = [];
-        const numPoints = Math.floor(Math.random() * 2) + 3; // 3-4개
-        const shuffled = [...points].sort(() => 0.5 - Math.random());
-        
-        for (let i = 0; i < numPoints && i < shuffled.length; i++) {
-            selectedPoints.push(shuffled[i]);
-        }
-        
-        return selectedPoints;
-    }
-
     async getNews(section = 'world', useCache = true) {
         const cacheKey = `news:${section}`;
         
@@ -169,16 +123,45 @@ class NewsService {
         for (const source of sources) {
             try {
                 const feed = await this.parser.parseURL(source.url);
-                const items = feed.items.slice(0, 15).map(item => {
+                const items = await Promise.all(feed.items.slice(0, 15).map(async (item) => {
                     const title = item.title;
                     const description = item.contentSnippet || item.content || '';
                     const publishedAt = item.pubDate || new Date().toISOString();
                     
+                    // 실제 AI 서비스 호출
+                    let titleKo = title;
+                    let descriptionKo = description;
+                    let summaryPoints = ['요약 정보를 생성 중입니다...'];
+                    let aiDetailedSummary = '';
+                    let originalTextKo = description;
+                    
+                    try {
+                        // AI 번역 및 요약 (병렬 처리)
+                        const [translatedTitle, translatedDesc, summaryPts, detailedSummary] = await Promise.all([
+                            aiService.translateToKorean(title),
+                            aiService.translateToKorean(description),
+                            aiService.generateSummaryPoints(description),
+                            aiService.generateDetailedSummary({ title, content: description })
+                        ]);
+                        
+                        titleKo = translatedTitle || title;
+                        descriptionKo = translatedDesc || description;
+                        summaryPoints = summaryPts || ['요약 정보를 생성할 수 없습니다.'];
+                        aiDetailedSummary = detailedSummary || '상세 요약을 생성할 수 없습니다.';
+                        originalTextKo = translatedDesc || description;
+                        
+                    } catch (aiError) {
+                        logger.warn(`AI processing failed for article: ${title.substring(0, 50)}...`, aiError.message);
+                        // AI 실패 시 fallback
+                        summaryPoints = ['AI 요약 서비스를 일시적으로 사용할 수 없습니다.'];
+                        aiDetailedSummary = '상세 요약을 생성할 수 없습니다.';
+                    }
+                    
                     return {
                         title,
-                        titleKo: title, // 실제로는 번역 API 사용
+                        titleKo,
                         description,
-                        descriptionKo: description, // 실제로는 번역 API 사용
+                        descriptionKo,
                         url: item.link,
                         urlToImage: item.enclosure?.url || null,
                         source: source.name,
@@ -187,15 +170,18 @@ class NewsService {
                         rating: this.calculateRating(title, description, source.name),
                         tags: this.generateTags(title, description, source.name),
                         id: Buffer.from(item.link).toString('base64').slice(0, 12),
-                        // AI 기능 추가
-                        aiDetailedSummary: this.generateAISummary(title, description),
-                        originalTextKo: this.generateKoreanTranslation(title, description),
-                        summaryPoints: this.generateSummaryPoints(title, description),
+                        // 실제 AI 기능
+                        aiDetailedSummary,
+                        originalTextKo,
+                        summaryPoints,
+                        hasTranslation: titleKo !== title || descriptionKo !== description,
+                        hasSummary: summaryPoints.length > 0,
                         content: description,
                         language: 'en',
-                        apiSource: 'RSS'
+                        apiSource: 'RSS',
+                        section
                     };
-                });
+                }));
                 articles.push(...items);
             } catch (error) {
                 logger.error(`Failed to fetch from ${source.name}:`, error.message);
