@@ -1118,8 +1118,20 @@
         // 전역 변수로 설정
         const newsApp = new EmarkNews();
 
-        document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', async () => {
             console.log('EmarkNews v7.1 initialized successfully! 🚀');
+            
+            // 전역 newsApp 설정
+            window.newsApp = newsApp;
+            
+            // 초기 뉴스 로딩
+            console.log('🔄 초기 뉴스 로딩 시작...');
+            try {
+                await newsApp.loadNews('world');
+                console.log('✅ 초기 뉴스 로딩 완료');
+            } catch (error) {
+                console.error('❌ 초기 뉴스 로딩 실패:', error);
+            }
         });
     </script>
 </body>
