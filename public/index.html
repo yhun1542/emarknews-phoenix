@@ -745,8 +745,8 @@
                         const data = await response.json();
                         console.log('📊 API 응답:', data);
                         
-                        if (data.status === 'success' && data.articles) {
-                            articles = data.articles;
+                        if (data.success && data.data && data.data.articles) {
+                            articles = data.data.articles;
                             this.allArticles.set(section, articles);
                         } else {
                             throw new Error('Invalid API response format');
